@@ -12,13 +12,12 @@ const Home: NextPage = () => {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     // Todo: Call API
-    setFile(""); // ? Proper way to set file to empty ? 
+    setFile("");
   }
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        {/* ? What type of files shoudl I allow ? */}
         <input type="file" value={file} onChange={handleFileChange} />
         <input type="submit" value="Submit" />
       </form>
