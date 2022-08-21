@@ -10,6 +10,7 @@ import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 
 import type { NextPage } from "next";
+import { Button, Grid } from "@mui/material";
 
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -27,10 +28,25 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
 const Lyrics: NextPage = () => {
   return (
     <div>
-      {lyricsArray.map((line, idx) => (
-        // if line = "" br else Typography
-        <Typography key={idx}>{line}</Typography>
-      ))}
+      {lyricsTranslationArray.map((line, lineIdx) => {
+        if (typeof line === "number") return <div key={lineIdx}>number</div>;
+        else if (line.length === 0 && lyricsArray[lineIdx] !== "")
+          return <Typography>{lyricsArray[lineIdx]}</Typography>;
+        else if (line.length === 0 && lyricsArray[lineIdx] === "")
+          return <br key={lineIdx} />;
+        else
+          return (
+            <Grid container key={lineIdx}>
+              {line.map((char, charIdx) => {
+                return (
+                  <Grid item key={charIdx}>
+                    <Typography>{char.title}</Typography>
+                  </Grid>
+                );
+              })}
+            </Grid>
+          );
+      })}
 
       {/* <HtmlTooltip
         title={
