@@ -10,20 +10,22 @@ import Typography from "@mui/material/Typography";
 
 import LineData from "../components/LineData";
 
+interface CharData {
+  title: string;
+  definitions: string;
+  pronunciation?: string;
+}
+
 const Lyrics: NextPage = () => {
   return (
     <div>
       {lyricsTranslationArray.map((line, lineIdx) => {
         // Repeated Line
         if (typeof line === "number") {
-          // Todo: keep going back until you find a value that is english, empty space or line
-          let foundValue = false;
-          let value: number | never[] = line;
-          let count = 100;
-          while (typeof value === "number" && count > 0) {
-            count--;
-          }
-          return <div key={lineIdx}>{lineIdx}</div>;
+          let value: number | never[] | any = lyricsTranslationArray[line];
+          if (typeof value === "number") return <div key={lineIdx}></div>;
+          else if (value === []) return <br key={lineIdx} />;
+          else return <LineData line={value} key={lineIdx} />;
         }
         // English
         else if (line.length === 0 && lyricsArray[lineIdx] !== "")
