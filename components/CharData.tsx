@@ -11,7 +11,7 @@ import {
 interface Props {
   char: string;
   definitions: string;
-  pronunciation?: string;
+  pronunciation: string | null;
 }
 
 // Todo: placement="bottom-end"
@@ -32,14 +32,25 @@ export default function CharData({
   definitions,
   pronunciation,
 }: Props): JSX.Element {
+  let formattedDefinitions: string[] = [];
+  definitions.split("[").forEach((def) => {
+    if (def !== "") {
+      let formattedDef: string = "[" + def;
+      formattedDefinitions.push(formattedDef.trim());
+    }
+  });
+
   return (
     <HtmlTooltip
       title={
         <React.Fragment>
           <Typography color="inherit">{pronunciation}</Typography>
-          <Typography> {definitions}</Typography>
+          {formattedDefinitions.map((def, defIdx) => {
+            return <Typography key={defIdx}> {def}</Typography>;
+          })}
         </React.Fragment>
       }
+      placement={"bottom-end"}
     >
       <Typography sx={{ textDecoration: "underline", fontSize: 23 }}>
         {char}
