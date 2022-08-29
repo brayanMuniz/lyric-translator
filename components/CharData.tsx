@@ -14,8 +14,6 @@ interface Props {
   pronunciation: string | null;
 }
 
-// Todo: placement="bottom-end"
-
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))(({}) => ({
@@ -52,7 +50,7 @@ export default function CharData({
       }
       placement={"bottom-end"}
     >
-      <Typography sx={{ textDecoration: "underline", fontSize: 23 }}>
+      <Typography sx={{ textDecoration: "underline", fontSize: 25 }}>
         {char}
       </Typography>
     </HtmlTooltip>

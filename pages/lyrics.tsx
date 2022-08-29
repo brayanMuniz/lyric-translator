@@ -6,19 +6,14 @@ import lyricsTranslation from "../lyrics-translation.json";
 const lyricsArray = Object.values(jsonLyrics);
 const lyricsTranslationArray = Object.values(lyricsTranslation);
 
+import { Container } from "@mui/system";
 import Typography from "@mui/material/Typography";
 
 import LineData from "../components/LineData";
 
-interface CharData {
-  title: string;
-  definitions: string;
-  pronunciation?: string;
-}
-
 const Lyrics: NextPage = () => {
   return (
-    <div>
+    <Container sx={{ marginTop: 3 }}>
       {lyricsTranslationArray.map((line, lineIdx) => {
         // Repeated Line
         if (typeof line === "number") {
@@ -30,7 +25,7 @@ const Lyrics: NextPage = () => {
         // English
         else if (line.length === 0 && lyricsArray[lineIdx] !== "")
           return (
-            <Typography key={lineIdx} sx={{ fontSize: 23 }}>
+            <Typography key={lineIdx} sx={{ fontSize: 25 }}>
               {lyricsArray[lineIdx]}
             </Typography>
           );
@@ -40,7 +35,7 @@ const Lyrics: NextPage = () => {
         // Unique Line
         else return <LineData line={line} key={lineIdx} />;
       })}
-    </div>
+    </Container>
   );
 };
 
